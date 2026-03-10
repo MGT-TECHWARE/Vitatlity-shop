@@ -1,0 +1,593 @@
+.as {
+  max-width: 720px;
+}
+
+.as-loading {
+  padding: 40px;
+  text-align: center;
+  color: #9ca3af;
+  font-size: 0.88rem;
+}
+
+.as-section {
+  background: #ffffff;
+  border: 1px solid #eef0f4;
+  border-radius: 14px;
+  padding: 24px;
+  margin-bottom: 20px;
+}
+
+.as-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.as-section-header .as-section-title {
+  margin-bottom: 0;
+}
+
+.as-section-title {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #1a1d26;
+  margin-bottom: 20px;
+  letter-spacing: -0.01em;
+  display: flex;
+  align-items: center;
+}
+
+.as-label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #6b7280;
+  margin-bottom: 16px;
+}
+
+.as-label:last-child {
+  margin-bottom: 0;
+}
+
+.as-input,
+.as-select {
+  padding: 10px 14px;
+  border: 1.5px solid #eef0f4;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  color: #1a1d26;
+  outline: none;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  width: 100%;
+  box-sizing: border-box;
+  background: #f9fafb;
+}
+
+.as-input:focus,
+.as-select:focus {
+  border-color: #6366f1;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.08);
+}
+
+.as-input--mono {
+  font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+  font-size: 0.8rem;
+  letter-spacing: -0.02em;
+}
+
+.as-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* ── Badge ── */
+.as-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.as-badge--success {
+  background: rgba(16, 185, 129, 0.1);
+  color: #059669;
+}
+
+.as-badge-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10b981;
+  flex-shrink: 0;
+}
+
+/* ── Connected State ── */
+.as-stripe-status-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px;
+  background: #ecfdf5;
+  border: 1.5px solid #a7f3d0;
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+
+.as-stripe-status-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #d1fae5;
+  color: #059669;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.as-stripe-status-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.as-stripe-status-text strong {
+  font-size: 0.88rem;
+  color: #065f46;
+}
+
+.as-stripe-status-text span {
+  font-size: 0.76rem;
+  color: #047857;
+}
+
+.as-stripe-disconnect {
+  padding: 6px 14px;
+  border: 1.5px solid #fecaca;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #ef4444;
+  background: white;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+.as-stripe-disconnect:hover {
+  background: #fef2f2;
+  border-color: #ef4444;
+}
+
+/* ── Setup Steps ── */
+.as-stripe-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.as-step {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.as-step-num {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #6366f1;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.as-step-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.as-step-content strong {
+  font-size: 0.85rem;
+  color: #1a1d26;
+}
+
+.as-step-content span {
+  font-size: 0.78rem;
+  color: #6b7280;
+  line-height: 1.5;
+}
+
+.as-step-content a {
+  color: #6366f1;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.as-step-content a:hover {
+  text-decoration: underline;
+}
+
+/* ── Stripe Fields ── */
+.as-stripe-fields {
+  border-top: 1px solid #f3f4f6;
+  padding-top: 20px;
+}
+
+.as-secret-wrap {
+  position: relative;
+}
+
+.as-secret-wrap .as-input {
+  padding-right: 60px;
+}
+
+.as-secret-toggle {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 4px 10px;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #6366f1;
+  background: rgba(99, 102, 241, 0.08);
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s ease;
+}
+
+.as-secret-toggle:hover {
+  background: rgba(99, 102, 241, 0.15);
+}
+
+/* ── Notices ── */
+.as-notice {
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  margin-bottom: 16px;
+  line-height: 1.4;
+}
+
+.as-notice--warn {
+  background: #fffbeb;
+  color: #92400e;
+  border: 1px solid #fde68a;
+}
+
+.as-notice--info {
+  background: #f0fdf4;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+}
+
+/* ── Test Button ── */
+.as-test-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border: 1.5px solid #eef0f4;
+  border-radius: 10px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #374151;
+  background: white;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: inherit;
+}
+
+.as-test-btn:hover {
+  border-color: #6366f1;
+  color: #6366f1;
+}
+
+.as-test-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.as-test-btn svg {
+  flex-shrink: 0;
+}
+
+/* ── Spinner ── */
+.as-spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid #d1d5db;
+  border-top-color: #6366f1;
+  border-radius: 50%;
+  animation: asSpin 0.6s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes asSpin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Stripe Mini Dashboard ── */
+.as-stripe-dash-loading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 20px;
+  color: #6b7280;
+  font-size: 0.82rem;
+  justify-content: center;
+}
+
+.as-stripe-dash {
+  margin-top: 16px;
+  border: 1.5px solid #eef0f4;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.as-stripe-dash-account {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: #f9fafb;
+  border-bottom: 1px solid #eef0f4;
+}
+
+.as-stripe-dash-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #635bff, #7c3aed);
+  color: white;
+  font-size: 0.92rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.as-stripe-dash-account-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.as-stripe-dash-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #1a1d26;
+}
+
+.as-stripe-dash-email {
+  font-size: 0.72rem;
+  color: #9ca3af;
+}
+
+.as-stripe-dash-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #6366f1;
+  background: rgba(99, 102, 241, 0.08);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.15s ease;
+}
+
+.as-stripe-dash-link:hover {
+  background: rgba(99, 102, 241, 0.15);
+}
+
+/* Balances */
+.as-stripe-dash-balances {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid #eef0f4;
+}
+
+.as-stripe-dash-balance-card {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.as-stripe-dash-balance-card:first-child {
+  border-right: 1px solid #eef0f4;
+}
+
+.as-stripe-dash-balance-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #9ca3af;
+}
+
+.as-stripe-dash-balance-amount {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #374151;
+}
+
+.as-stripe-dash-balance-amount--available {
+  color: #059669;
+}
+
+/* Recent Payments */
+.as-stripe-dash-payments {
+  padding: 0;
+}
+
+.as-stripe-dash-payments-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.as-stripe-dash-payments-header span {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.as-stripe-dash-payments-header a {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #6366f1;
+  text-decoration: none;
+}
+
+.as-stripe-dash-payments-header a:hover {
+  text-decoration: underline;
+}
+
+.as-stripe-dash-payments-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.as-stripe-dash-payment {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  border-bottom: 1px solid #f9fafb;
+  transition: background 0.1s ease;
+}
+
+.as-stripe-dash-payment:last-child {
+  border-bottom: none;
+}
+
+.as-stripe-dash-payment:hover {
+  background: #fafbfc;
+}
+
+.as-stripe-dash-payment-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.as-stripe-dash-payment-desc {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #1a1d26;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 260px;
+}
+
+.as-stripe-dash-payment-date {
+  font-size: 0.68rem;
+  color: #9ca3af;
+}
+
+.as-stripe-dash-payment-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.as-stripe-dash-payment-amount {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #1a1d26;
+}
+
+.as-stripe-dash-payment-status {
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.as-stripe-dash-payment-status--succeeded {
+  background: #ecfdf5;
+  color: #059669;
+}
+
+.as-stripe-dash-payment-status--pending {
+  background: #fffbeb;
+  color: #d97706;
+}
+
+.as-stripe-dash-payment-status--failed {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+.as-stripe-dash-empty {
+  padding: 24px 16px;
+  text-align: center;
+  font-size: 0.78rem;
+  color: #9ca3af;
+}
+
+/* ── Save Button ── */
+.as-save {
+  padding: 12px 32px;
+  background: #6366f1;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: inherit;
+}
+
+.as-save:hover {
+  background: #4f46e5;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
+}
+
+.as-save:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 480px) {
+  .as-row { grid-template-columns: 1fr; }
+  .as-stripe-status-card { flex-wrap: wrap; }
+}

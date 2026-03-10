@@ -1,0 +1,220 @@
+/* ── Toolbar ── */
+.ap-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.ap-toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+}
+
+.ap-search {
+  flex: 1;
+  max-width: 300px;
+  padding: 9px 14px 9px 36px;
+  border: 1.5px solid #eef0f4;
+  border-radius: 10px;
+  font-size: 0.82rem;
+  outline: none;
+  background: #f9fafb url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='7' cy='7' r='4.5' stroke='%23b0b7c8' stroke-width='1.5'/%3E%3Cpath d='M10.5 10.5L14 14' stroke='%23b0b7c8' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E") 12px center no-repeat;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  color: #374151;
+}
+
+.ap-search::placeholder { color: #b0b7c8; }
+
+.ap-search:focus {
+  border-color: #6366f1;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.08);
+}
+
+.ap-filter-select {
+  padding: 9px 14px;
+  border: 1.5px solid #eef0f4;
+  border-radius: 10px;
+  font-size: 0.82rem;
+  color: #6b7280;
+  background: #f9fafb;
+  outline: none;
+  text-transform: capitalize;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.ap-filter-select:focus {
+  border-color: #6366f1;
+}
+
+.ap-add-btn {
+  padding: 9px 20px;
+  background: #6366f1;
+  color: white;
+  border-radius: 10px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+  text-decoration: none;
+  font-family: inherit;
+}
+
+.ap-add-btn:hover {
+  background: #4f46e5;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
+}
+
+.ap-count {
+  font-size: 0.75rem;
+  color: #9ca3b4;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+/* ── Table ── */
+.ap-table-card {
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1px solid #eef0f4;
+  overflow: hidden;
+}
+
+.ap-table-wrap { overflow-x: auto; }
+
+.ap-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.ap-table th {
+  text-align: left;
+  padding: 12px 20px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #9ca3b4;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid #eef0f4;
+  background: #fafbfc;
+  white-space: nowrap;
+}
+
+.ap-table td {
+  padding: 12px 20px;
+  color: #6b7280;
+  border-bottom: 1px solid #f5f6fa;
+  vertical-align: middle;
+}
+
+.ap-table tr:hover td { background: #fafaff; }
+
+.ap-product-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ap-product-thumb {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex-shrink: 0;
+  background: #f5f6fa;
+}
+
+.ap-product-name {
+  font-weight: 600;
+  color: #1a1d26;
+  white-space: nowrap;
+}
+
+.ap-product-brand {
+  font-size: 0.7rem;
+  color: #9ca3b4;
+}
+
+.ap-cat-badge {
+  padding: 4px 10px;
+  background: #eef0ff;
+  color: #6366f1;
+  font-size: 0.7rem;
+  font-weight: 500;
+  border-radius: 6px;
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+.ap-price-cell {
+  font-weight: 600;
+  color: #1a1d26;
+}
+
+.ap-unit {
+  display: block;
+  font-size: 0.65rem;
+  font-weight: 400;
+  color: #9ca3b4;
+}
+
+.ap-status {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.ap-status--in { background: #ecfdf5; color: #10b981; }
+.ap-status--out { background: #fef2f2; color: #ef4444; }
+
+.ap-rating {
+  color: #f59e0b;
+  font-weight: 600;
+  font-size: 0.82rem;
+}
+
+/* ── Actions ── */
+.ap-actions {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.ap-action-btn {
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border: none;
+  text-decoration: none;
+  font-family: inherit;
+}
+
+.ap-action-edit { background: #eef0ff; color: #6366f1; }
+.ap-action-edit:hover { background: #e0e3ff; }
+
+.ap-action-delete { background: #fef2f2; color: #ef4444; }
+.ap-action-delete:hover { background: #fee2e2; }
+
+.ap-confirm-delete { display: flex; gap: 4px; }
+.ap-action-confirm { background: #ef4444; color: white; }
+.ap-action-cancel { background: #f3f4f6; color: #6b7280; }
+
+.ap-empty {
+  text-align: center;
+  padding: 48px 20px !important;
+  color: #9ca3b4;
+  font-size: 0.85rem;
+}

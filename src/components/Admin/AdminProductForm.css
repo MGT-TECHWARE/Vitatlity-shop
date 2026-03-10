@@ -1,0 +1,309 @@
+.pf-grid {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 24px;
+  align-items: start;
+}
+
+.pf-section {
+  background: #ffffff;
+  border: 1px solid #eef0f4;
+  border-radius: 14px;
+  padding: 24px;
+  margin-bottom: 20px;
+}
+
+.pf-section-title {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #1a1d26;
+  margin-bottom: 20px;
+  letter-spacing: -0.01em;
+}
+
+.pf-label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #6b7280;
+  margin-bottom: 16px;
+}
+
+.pf-label:last-child { margin-bottom: 0; }
+
+.pf-input,
+.pf-select,
+.pf-textarea {
+  padding: 10px 14px;
+  border: 1.5px solid #eef0f4;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  color: #1a1d26;
+  outline: none;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  width: 100%;
+  box-sizing: border-box;
+  background: #f9fafb;
+}
+
+.pf-input:focus,
+.pf-select:focus,
+.pf-textarea:focus {
+  border-color: #6366f1;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.08);
+}
+
+.pf-textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.pf-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* ── Image Upload Zone ── */
+.pf-upload-input {
+  display: none;
+}
+
+.pf-upload-zone {
+  border: 2px dashed #d1d5db;
+  border-radius: 12px;
+  padding: 40px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: #fafbfc;
+}
+
+.pf-upload-zone:hover {
+  border-color: #6366f1;
+  background: rgba(99, 102, 241, 0.03);
+}
+
+.pf-upload-zone--active {
+  border-color: #6366f1;
+  background: rgba(99, 102, 241, 0.06);
+  border-style: solid;
+}
+
+.pf-upload-icon {
+  color: #9ca3af;
+  transition: color 0.2s ease;
+}
+
+.pf-upload-zone:hover .pf-upload-icon,
+.pf-upload-zone--active .pf-upload-icon {
+  color: #6366f1;
+}
+
+.pf-upload-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.pf-upload-text-main {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.pf-upload-text-sub {
+  font-size: 0.72rem;
+  color: #9ca3af;
+  font-weight: 400;
+}
+
+.pf-upload-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: #6366f1;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.pf-upload-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid rgba(99, 102, 241, 0.15);
+  border-top-color: #6366f1;
+  border-radius: 50%;
+  animation: pf-spin 0.7s linear infinite;
+}
+
+@keyframes pf-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Image Preview ── */
+.pf-upload-preview {
+  display: flex;
+  gap: 16px;
+  padding: 12px;
+  border: 1.5px solid #eef0f4;
+  border-radius: 12px;
+  background: #fafbfc;
+  align-items: center;
+}
+
+.pf-upload-preview-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: #f0f1f3;
+}
+
+.pf-upload-preview-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.pf-upload-preview-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pf-upload-preview-url {
+  font-size: 0.72rem;
+  color: #9ca3af;
+  word-break: break-all;
+  line-height: 1.4;
+}
+
+.pf-upload-preview-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.pf-upload-change-btn,
+.pf-upload-remove-btn {
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border: none;
+  font-family: inherit;
+}
+
+.pf-upload-change-btn {
+  background: #6366f1;
+  color: white;
+}
+
+.pf-upload-change-btn:hover {
+  background: #4f46e5;
+}
+
+.pf-upload-remove-btn {
+  background: transparent;
+  color: #ef4444;
+  border: 1.5px solid #fecaca;
+}
+
+.pf-upload-remove-btn:hover {
+  background: #fef2f2;
+  border-color: #ef4444;
+}
+
+/* ── Upload Error ── */
+.pf-upload-error {
+  margin-top: 8px;
+  padding: 10px 14px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  color: #dc2626;
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+
+/* ── URL Fallback ── */
+.pf-upload-url-fallback {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pf-upload-or {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* ── Toggle / Checkbox ── */
+.pf-toggle-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.pf-checkbox {
+  width: 18px;
+  height: 18px;
+  accent-color: #6366f1;
+}
+
+.pf-toggle-text {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: #6b7280;
+}
+
+/* ── Submit Button ── */
+.pf-submit {
+  width: 100%;
+  padding: 12px;
+  background: #6366f1;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: inherit;
+}
+
+.pf-submit:hover {
+  background: #4f46e5;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
+}
+
+.pf-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+@media (max-width: 768px) {
+  .pf-grid { grid-template-columns: 1fr; }
+  .pf-row { grid-template-columns: 1fr; }
+}

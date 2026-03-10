@@ -1,0 +1,146 @@
+.admin-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 32px;
+  background: #ffffff;
+  border-bottom: 1px solid #eef0f4;
+  gap: 24px;
+}
+
+.admin-header-left {
+  min-width: 0;
+}
+
+.admin-header-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #1a1d26;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+
+.admin-header-subtitle {
+  font-size: 0.82rem;
+  color: #9ca3b4;
+  margin-top: 2px;
+  font-weight: 400;
+}
+
+.admin-header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+/* Search */
+.admin-header-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.admin-header-search-icon {
+  position: absolute;
+  left: 12px;
+  color: #b0b7c8;
+  pointer-events: none;
+}
+
+.admin-header-search-input {
+  padding: 9px 80px 9px 36px;
+  border: 1.5px solid #eef0f4;
+  border-radius: 10px;
+  font-size: 0.82rem;
+  color: #374151;
+  background: #f9fafb;
+  outline: none;
+  width: 240px;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.admin-header-search-input::placeholder {
+  color: #b0b7c8;
+}
+
+.admin-header-search-input:focus {
+  border-color: #6366f1;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.08);
+  width: 280px;
+}
+
+.admin-header-search-shortcut {
+  position: absolute;
+  right: 10px;
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: #b0b7c8;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 5px;
+  padding: 2px 6px;
+  pointer-events: none;
+}
+
+/* Icon Button */
+.admin-header-icon-btn {
+  position: relative;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  border: 1.5px solid #eef0f4;
+  background: #ffffff;
+  color: #6b7280;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.admin-header-icon-btn:hover {
+  border-color: #d1d5db;
+  color: #374151;
+  background: #f9fafb;
+}
+
+.admin-header-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #ef4444;
+  color: white;
+  font-size: 0.6rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #ffffff;
+}
+
+@media (max-width: 900px) {
+  .admin-header {
+    padding: 16px 20px;
+    flex-wrap: wrap;
+  }
+
+  .admin-header-search-input {
+    width: 180px;
+  }
+
+  .admin-header-search-input:focus {
+    width: 200px;
+  }
+}
+
+@media (max-width: 600px) {
+  .admin-header-search {
+    display: none;
+  }
+}

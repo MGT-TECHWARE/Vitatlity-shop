@@ -1,0 +1,117 @@
+.filter-sidebar {
+  width: var(--sidebar-w);
+  flex-shrink: 0;
+  animation: slideInUp 0.4s var(--ease-out) both;
+}
+
+.filter-sidebar-inner {
+  background: var(--white);
+  border-radius: var(--r-xl);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  box-shadow: var(--sh-card);
+  padding: var(--sp-lg);
+  position: sticky;
+  top: calc(var(--nav-h) + var(--sp-lg));
+}
+
+.filter-sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--sp-lg);
+}
+
+.filter-sidebar-title {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--gray-700);
+}
+
+.filter-sidebar-close {
+  width: 28px; height: 28px; border-radius: var(--r-sm);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--gray-400);
+  transition: all var(--dur-fast);
+}
+.filter-sidebar-close:hover { background: var(--gray-50); color: var(--gray-600); }
+
+.filter-group {
+  margin-bottom: var(--sp-lg);
+  padding-bottom: var(--sp-lg);
+  border-bottom: 1px solid var(--gray-100);
+}
+.filter-group:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+
+.filter-group-label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gray-400);
+  margin-bottom: var(--sp-sm);
+}
+
+.filter-toggle-group { display: flex; gap: var(--sp-xs); }
+
+.filter-toggle-btn {
+  flex: 1;
+  padding: 8px 10px;
+  border-radius: var(--r-pill);
+  font-size: 0.75rem;
+  font-weight: 500;
+  border: 1.5px solid rgba(0, 0, 0, 0.06);
+  color: var(--gray-500);
+  text-align: center;
+  background: var(--white);
+  transition: all var(--dur-fast);
+}
+.filter-toggle-btn:hover { border-color: var(--primary); color: var(--primary); }
+.filter-toggle-btn.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white;
+  box-shadow: 0 2px 8px rgba(61, 90, 128, 0.2);
+}
+
+.filter-price-inputs {
+  display: flex;
+  gap: var(--sp-sm);
+  align-items: center;
+}
+
+.filter-price-input {
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: var(--r-sm);
+  border: 1.5px solid rgba(0, 0, 0, 0.06);
+  font-size: 0.8rem;
+  outline: none;
+  color: var(--gray-700);
+  background: var(--gray-50);
+  transition: all var(--dur-fast);
+}
+.filter-price-input:focus {
+  border-color: var(--primary);
+  background: var(--white);
+  box-shadow: 0 0 0 3px var(--primary-glow);
+}
+
+.filter-price-sep { color: var(--gray-300); font-size: 0.8rem; }
+
+.filter-clear {
+  width: 100%;
+  padding: 9px;
+  border-radius: var(--r-pill);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--gray-400);
+  border: 1.5px solid rgba(0, 0, 0, 0.06);
+  text-align: center;
+  margin-top: var(--sp-md);
+  transition: all var(--dur-fast);
+}
+.filter-clear:hover { border-color: var(--danger); color: var(--danger); }
+
+@media (max-width: 768px) {
+  .filter-sidebar { width: 100%; order: -1; }
+}

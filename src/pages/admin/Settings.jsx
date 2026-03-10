@@ -80,8 +80,8 @@ export default function AdminSettings() {
   };
 
   const getKeyMode = () => {
-    if (stripePk.startsWith('pk_live') || stripeSk.startsWith('sk_live')) return 'live';
-    if (stripePk.startsWith('pk_test') || stripeSk.startsWith('sk_test')) return 'test';
+    if (stripePk.startsWith('pk_live') || stripeSk.startsWith('sk_live') || stripeSk.startsWith('rk_live')) return 'live';
+    if (stripePk.startsWith('pk_test') || stripeSk.startsWith('sk_test') || stripeSk.startsWith('rk_test')) return 'test';
     return null;
   };
 
@@ -344,14 +344,20 @@ export default function AdminSettings() {
               <div className="as-step">
                 <div className="as-step-num">2</div>
                 <div className="as-step-content">
-                  <strong>Get your API keys</strong>
-                  <span>Go to <a href="https://dashboard.stripe.com/apikeys" target="_blank" rel="noopener noreferrer">Developers &rarr; API Keys</a> in your Stripe Dashboard and copy your keys below.</span>
+                  <strong>Create a restricted API key</strong>
+                  <span>Go to <a href="https://dashboard.stripe.com/apikeys" target="_blank" rel="noopener noreferrer">Developers &rarr; API Keys</a>, click <strong>"Create restricted key"</strong>, and enable these permissions:</span>
+                  <ul style={{ margin: '8px 0 0 16px', fontSize: '13px', color: 'var(--text-secondary, #666)', lineHeight: '1.6' }}>
+                    <li><strong>Checkout Sessions</strong> — Read &amp; Write</li>
+                    <li><strong>Charges</strong> — Read</li>
+                    <li><strong>Balance</strong> — Read</li>
+                  </ul>
                 </div>
               </div>
               <div className="as-step">
                 <div className="as-step-num">3</div>
                 <div className="as-step-content">
-                  <strong>Paste them here and save</strong>
+                  <strong>Copy your publishable key and restricted key below</strong>
+                  <span>Your publishable key starts with <code>pk_</code> and the restricted key starts with <code>rk_</code>.</span>
                 </div>
               </div>
             </div>
@@ -370,14 +376,14 @@ export default function AdminSettings() {
                 />
               </label>
               <label className="as-label">
-                Secret Key
+                Restricted Key
                 <div className="as-secret-wrap">
                   <input
                     type={showSecret ? 'text' : 'password'}
                     value={stripeSk}
                     onChange={(e) => { setStripeSk(e.target.value.trim()); setConnectionStatus(null); }}
                     className="as-input as-input--mono"
-                    placeholder="sk_test_... or sk_live_..."
+                    placeholder="rk_test_... or rk_live_..."
                     spellCheck={false}
                     autoComplete="off"
                   />

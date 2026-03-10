@@ -1,24 +1,22 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useProducts } from '../../context/ProductsContext';
+import { useCategories } from '../../context/CategoriesContext';
 import { formatCurrency } from '../../utils/formatCurrency';
 import './Products.css';
 
-const categoryLabel = {
-  vitamins: 'Vitamins',
-  'weight-loss': 'Weight Loss',
-  protein: 'Protein',
-  'pre-workout': 'Pre-Workout',
-  'post-workout': 'Post-Workout',
-  'gut-health': 'Gut Health',
-  bundles: 'Bundles',
-};
-
 export default function AdminProducts() {
   const { products, deleteProduct } = useProducts();
+  const { categories: dbCategories } = useCategories();
   const [search, setSearch] = useState('');
   const [catFilter, setCatFilter] = useState('all');
   const [confirmDelete, setConfirmDelete] = useState(null);
+
+  const categoryLabel = useMemo(() => {
+    const map = {};
+    dbCategories.forEach(c => { map[c.slug] = c.name; });
+    return map;
+  }, [dbCategories]);
 
   const categories = useMemo(() => {
     const cats = [...new Set(products.map(p => p.category))];

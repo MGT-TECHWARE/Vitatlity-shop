@@ -1,16 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { supabaseAdmin } from '../../lib/supabaseAdmin';
+import { useCategories } from '../../context/CategoriesContext';
 import './AdminProductForm.css';
-
-const categories = [
-  { value: 'vitamins', label: 'Vitamins' },
-  { value: 'protein', label: 'Protein' },
-  { value: 'pre-workout', label: 'Pre-Workout' },
-  { value: 'post-workout', label: 'Post-Workout' },
-  { value: 'weight-loss', label: 'Weight Loss' },
-  { value: 'gut-health', label: 'Gut Health' },
-  { value: 'bundles', label: 'Bundles' },
-];
 
 const statusOptions = [
   { value: 'active', label: 'Active' },
@@ -50,6 +41,7 @@ const defaultProduct = {
 };
 
 export default function AdminProductForm({ initialData, onSubmit, submitLabel = 'Save Product' }) {
+  const { categories, addCategory } = useCategories();
   const [form, setForm] = useState({
     ...defaultProduct,
     ...initialData,
@@ -61,6 +53,25 @@ export default function AdminProductForm({ initialData, onSubmit, submitLabel = 
   const [uploadError, setUploadError] = useState('');
   const [dragActive, setDragActive] = useState(false);
   const fileInputRef = useRef(null);
+  const [showNewCategory, setShowNewCategory] = useState(false);
+  const [newCategoryName, setNewCategoryName] = useState('');
+  const [addingCategory, setAddingCategory] = useState(false);
+
+  const handleAddCategory = async () => {
+    if (!newCategoryName.trim()) return;
+    setAddingCategory(true);
+    try {
+      const slug = newCategoryName.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+      const created = await addCategory({ name: newCategoryName.trim(), slug });
+      handleChange('category', created.slug);
+      setNewCategoryName('');
+      setShowNewCategory(false);
+    } catch (err) {
+      setUploadError(err.message || 'Failed to add category');
+    } finally {
+      setAddingCategory(false);
+    }
+  };
 
   const handleChange = (field, value) => {
     setForm(prev => ({ ...prev, [field]: value }));
@@ -320,11 +331,39 @@ export default function AdminProductForm({ initialData, onSubmit, submitLabel = 
         <div className="pf-sidebar">
           <div className="pf-section">
             <h3 className="pf-section-title">Category</h3>
-            <select value={form.category} onChange={(e) => handleChange('category', e.target.value)} className="pf-select">
+            <select value={form.category} onChange={(e) => {
+              if (e.target.value === '__new__') {
+                setShowNewCategory(true);
+              } else {
+                handleChange('category', e.target.value);
+                setShowNewCategory(false);
+              }
+            }} className="pf-select">
               {categories.map(c => (
-                <option key={c.value} value={c.value}>{c.label}</option>
+                <option key={c.slug} value={c.slug}>{c.name}</option>
               ))}
+              <option value="__new__">+ Add New Category</option>
             </select>
+            {showNewCategory && (
+              <div className="pf-new-category">
+                <input
+                  type="text"
+                  value={newCategoryName}
+                  onChange={(e) => setNewCategoryName(e.target.value)}
+                  placeholder="Category name"
+                  className="pf-input"
+                  onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), handleAddCategory())}
+                />
+                <div className="pf-new-category-actions">
+                  <button type="button" className="pf-new-category-btn pf-new-category-save" onClick={handleAddCategory} disabled={addingCategory}>
+                    {addingCategory ? 'Adding...' : 'Add'}
+                  </button>
+                  <button type="button" className="pf-new-category-btn pf-new-category-cancel" onClick={() => { setShowNewCategory(false); setNewCategoryName(''); }}>
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
 
           <div className="pf-section">

@@ -40,6 +40,43 @@ create trigger on_auth_user_created
   for each row execute function public.handle_new_user();
 
 -- ============================================
+-- CATEGORIES (dynamic, managed by admin)
+-- ============================================
+create table if not exists public.categories (
+  id uuid default gen_random_uuid() primary key,
+  name text not null unique,
+  slug text not null unique,
+  icon text default 'grid',
+  display_order integer default 0,
+  created_at timestamptz default now() not null
+);
+
+alter table public.categories enable row level security;
+
+create policy "Anyone can read categories"
+  on public.categories for select
+  using (true);
+
+create policy "Service role can manage categories"
+  on public.categories for all
+  using (true)
+  with check (true);
+
+create index if not exists idx_categories_slug on public.categories(slug);
+create index if not exists idx_categories_display_order on public.categories(display_order);
+
+-- Seed default categories
+insert into public.categories (name, slug, icon, display_order) values
+  ('Vitamins', 'vitamins', 'capsule', 1),
+  ('Protein', 'protein', 'nutrition', 2),
+  ('Pre-Workout', 'pre-workout', 'brain', 3),
+  ('Post-Workout', 'post-workout', 'stethoscope', 4),
+  ('Weight Loss', 'weight-loss', 'pill', 5),
+  ('Gut Health', 'gut-health', 'shield', 6),
+  ('Bundles', 'bundles', 'supplies', 7)
+on conflict (slug) do nothing;
+
+-- ============================================
 -- PRODUCTS
 -- ============================================
 create table if not exists public.products (
@@ -51,10 +88,7 @@ create table if not exists public.products (
   price numeric(10,2) not null,
   compare_at_price numeric(10,2),
   images text[] default '{}',
-  category text not null check (category in (
-    'vitamins', 'weight-loss', 'protein', 'pre-workout',
-    'post-workout', 'gut-health', 'bundles'
-  )),
+  category text not null,
   supplement_facts jsonb,
   serving_instructions text,
   warnings text,

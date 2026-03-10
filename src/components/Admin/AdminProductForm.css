@@ -303,6 +303,49 @@
   box-shadow: none;
 }
 
+/* ── New Category Inline ── */
+.pf-new-category {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pf-new-category-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.pf-new-category-btn {
+  padding: 7px 14px;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+  transition: all 0.15s ease;
+}
+
+.pf-new-category-save {
+  background: #6366f1;
+  color: white;
+}
+
+.pf-new-category-save:hover { background: #4f46e5; }
+
+.pf-new-category-save:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pf-new-category-cancel {
+  background: #f3f4f6;
+  color: #6b7280;
+}
+
+.pf-new-category-cancel:hover { background: #e5e7eb; }
+
 @media (max-width: 768px) {
   .pf-grid { grid-template-columns: 1fr; }
   .pf-row { grid-template-columns: 1fr; }

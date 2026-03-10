@@ -5,6 +5,7 @@ import App from './App';
 import { CartProvider } from './context/CartContext';
 import { AuthProvider } from './context/AuthContext';
 import { ProductsProvider } from './context/ProductsContext';
+import { CategoriesProvider } from './context/CategoriesContext';
 import './styles/variables.css';
 import './styles/global.css';
 import './styles/animations.css';
@@ -13,11 +14,13 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthProvider>
-        <ProductsProvider>
-          <CartProvider>
-            <App />
-          </CartProvider>
-        </ProductsProvider>
+        <CategoriesProvider>
+          <ProductsProvider>
+            <CartProvider>
+              <App />
+            </CartProvider>
+          </ProductsProvider>
+        </CategoriesProvider>
       </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>

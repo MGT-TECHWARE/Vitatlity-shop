@@ -6,17 +6,18 @@
 }
 
 .pf-section {
-  background: #ffffff;
-  border: 1px solid #eef0f4;
+  background: var(--admin-card);
+  border: 1px solid var(--admin-border);
   border-radius: 14px;
   padding: 24px;
   margin-bottom: 20px;
+  transition: background 0.25s ease, border-color 0.25s ease;
 }
 
 .pf-section-title {
   font-size: 0.92rem;
   font-weight: 600;
-  color: #1a1d26;
+  color: var(--admin-text);
   margin-bottom: 20px;
   letter-spacing: -0.01em;
 }
@@ -27,7 +28,7 @@
   gap: 6px;
   font-size: 0.78rem;
   font-weight: 600;
-  color: #6b7280;
+  color: var(--admin-text-secondary);
   margin-bottom: 16px;
 }
 
@@ -37,24 +38,24 @@
 .pf-select,
 .pf-textarea {
   padding: 10px 14px;
-  border: 1.5px solid #eef0f4;
+  border: 1.5px solid var(--admin-border);
   border-radius: 10px;
   font-size: 0.85rem;
-  color: #1a1d26;
+  color: var(--admin-text);
   outline: none;
   transition: all 0.2s ease;
   font-family: inherit;
   width: 100%;
   box-sizing: border-box;
-  background: #f9fafb;
+  background: var(--admin-input-bg);
 }
 
 .pf-input:focus,
 .pf-select:focus,
 .pf-textarea:focus {
-  border-color: #6366f1;
-  background: #ffffff;
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.08);
+  border-color: var(--admin-primary);
+  background: var(--admin-card);
+  box-shadow: 0 0 0 3px var(--admin-primary-glow);
 }
 
 .pf-textarea {
@@ -74,7 +75,7 @@
 }
 
 .pf-upload-zone {
-  border: 2px dashed #d1d5db;
+  border: 2px dashed var(--admin-border-medium);
   border-radius: 12px;
   padding: 40px 24px;
   display: flex;
@@ -84,28 +85,28 @@
   gap: 12px;
   cursor: pointer;
   transition: all 0.2s ease;
-  background: #fafbfc;
+  background: var(--admin-input-bg);
 }
 
 .pf-upload-zone:hover {
-  border-color: #6366f1;
-  background: rgba(99, 102, 241, 0.03);
+  border-color: var(--admin-primary);
+  background: var(--admin-primary-bg);
 }
 
 .pf-upload-zone--active {
-  border-color: #6366f1;
-  background: rgba(99, 102, 241, 0.06);
+  border-color: var(--admin-primary);
+  background: var(--admin-primary-bg);
   border-style: solid;
 }
 
 .pf-upload-icon {
-  color: #9ca3af;
+  color: var(--admin-text-muted);
   transition: color 0.2s ease;
 }
 
 .pf-upload-zone:hover .pf-upload-icon,
 .pf-upload-zone--active .pf-upload-icon {
-  color: #6366f1;
+  color: var(--admin-primary);
 }
 
 .pf-upload-text {
@@ -118,12 +119,12 @@
 .pf-upload-text-main {
   font-size: 0.85rem;
   font-weight: 600;
-  color: #374151;
+  color: var(--admin-text-strong);
 }
 
 .pf-upload-text-sub {
   font-size: 0.72rem;
-  color: #9ca3af;
+  color: var(--admin-text-muted);
   font-weight: 400;
 }
 
@@ -132,7 +133,7 @@
   flex-direction: column;
   align-items: center;
   gap: 12px;
-  color: #6366f1;
+  color: var(--admin-primary);
   font-size: 0.85rem;
   font-weight: 600;
 }
@@ -140,8 +141,8 @@
 .pf-upload-spinner {
   width: 32px;
   height: 32px;
-  border: 3px solid rgba(99, 102, 241, 0.15);
-  border-top-color: #6366f1;
+  border: 3px solid var(--admin-primary-glow);
+  border-top-color: var(--admin-primary);
   border-radius: 50%;
   animation: pf-spin 0.7s linear infinite;
 }
@@ -155,9 +156,9 @@
   display: flex;
   gap: 16px;
   padding: 12px;
-  border: 1.5px solid #eef0f4;
+  border: 1.5px solid var(--admin-border);
   border-radius: 12px;
-  background: #fafbfc;
+  background: var(--admin-input-bg);
   align-items: center;
 }
 
@@ -167,7 +168,7 @@
   border-radius: 10px;
   overflow: hidden;
   flex-shrink: 0;
-  background: #f0f1f3;
+  background: var(--admin-border-light);
 }
 
 .pf-upload-preview-img img {
@@ -187,7 +188,7 @@
 
 .pf-upload-preview-url {
   font-size: 0.72rem;
-  color: #9ca3af;
+  color: var(--admin-text-muted);
   word-break: break-all;
   line-height: 1.4;
 }
@@ -210,33 +211,33 @@
 }
 
 .pf-upload-change-btn {
-  background: #6366f1;
+  background: var(--admin-primary);
   color: white;
 }
 
 .pf-upload-change-btn:hover {
-  background: #4f46e5;
+  background: var(--admin-primary-hover);
 }
 
 .pf-upload-remove-btn {
   background: transparent;
-  color: #ef4444;
-  border: 1.5px solid #fecaca;
+  color: var(--admin-danger);
+  border: 1.5px solid var(--admin-danger-border);
 }
 
 .pf-upload-remove-btn:hover {
-  background: #fef2f2;
-  border-color: #ef4444;
+  background: var(--admin-danger-bg);
+  border-color: var(--admin-danger);
 }
 
 /* ── Upload Error ── */
 .pf-upload-error {
   margin-top: 8px;
   padding: 10px 14px;
-  background: #fef2f2;
-  border: 1px solid #fecaca;
+  background: var(--admin-danger-bg);
+  border: 1px solid var(--admin-danger-border);
   border-radius: 8px;
-  color: #dc2626;
+  color: var(--admin-danger);
   font-size: 0.78rem;
   font-weight: 500;
 }
@@ -252,7 +253,7 @@
 .pf-upload-or {
   font-size: 0.72rem;
   font-weight: 600;
-  color: #9ca3af;
+  color: var(--admin-text-muted);
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }
@@ -268,20 +269,20 @@
 .pf-checkbox {
   width: 18px;
   height: 18px;
-  accent-color: #6366f1;
+  accent-color: var(--admin-primary);
 }
 
 .pf-toggle-text {
   font-size: 0.82rem;
   font-weight: 500;
-  color: #6b7280;
+  color: var(--admin-text-secondary);
 }
 
 /* ── Submit Button ── */
 .pf-submit {
   width: 100%;
   padding: 12px;
-  background: #6366f1;
+  background: var(--admin-primary);
   color: white;
   border: none;
   border-radius: 10px;
@@ -293,8 +294,8 @@
 }
 
 .pf-submit:hover {
-  background: #4f46e5;
-  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
+  background: var(--admin-primary-hover);
+  box-shadow: 0 4px 12px var(--admin-primary-strong-glow);
 }
 
 .pf-submit:disabled {
@@ -303,17 +304,106 @@
   box-shadow: none;
 }
 
-/* ── New Category Inline ── */
-.pf-new-category {
-  margin-top: 10px;
+/* ── Category Count Badge ── */
+.pf-category-count {
+  margin-left: 8px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--admin-primary);
+  background: var(--admin-primary-bg);
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+/* ── Category List ── */
+.pf-category-list {
   display: flex;
   flex-direction: column;
+  gap: 4px;
+  margin-bottom: 16px;
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.pf-category-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--admin-border);
+  border-radius: 9px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--admin-text-secondary);
+  background: var(--admin-input-bg);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: inherit;
+  text-align: left;
+  width: 100%;
+}
+
+.pf-category-item:hover {
+  border-color: var(--admin-primary-bg);
+  background: var(--admin-primary-bg);
+  color: var(--admin-primary-hover);
+}
+
+.pf-category-item--active {
+  border-color: var(--admin-primary);
+  background: var(--admin-primary-bg);
+  color: var(--admin-primary);
+  font-weight: 600;
+}
+
+.pf-category-check {
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.pf-category-check-empty {
+  display: block;
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid var(--admin-border-medium);
+  border-radius: 4px;
+  transition: border-color 0.15s ease;
+}
+
+.pf-category-item:hover .pf-category-check-empty {
+  border-color: var(--admin-primary);
+}
+
+.pf-category-item--active .pf-category-check {
+  color: var(--admin-primary);
+}
+
+/* ── New Category Inline ── */
+.pf-new-category {
+  border-top: 1px solid var(--admin-border);
+  padding-top: 14px;
+}
+
+.pf-new-category-header {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--admin-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+
+.pf-new-category-row {
+  display: flex;
   gap: 8px;
 }
 
-.pf-new-category-actions {
-  display: flex;
-  gap: 6px;
+.pf-new-category-row .pf-input {
+  flex: 1;
 }
 
 .pf-new-category-btn {
@@ -325,26 +415,20 @@
   border: none;
   font-family: inherit;
   transition: all 0.15s ease;
+  white-space: nowrap;
 }
 
 .pf-new-category-save {
-  background: #6366f1;
+  background: var(--admin-primary);
   color: white;
 }
 
-.pf-new-category-save:hover { background: #4f46e5; }
+.pf-new-category-save:hover { background: var(--admin-primary-hover); }
 
 .pf-new-category-save:disabled {
-  opacity: 0.5;
+  opacity: 0.4;
   cursor: not-allowed;
 }
-
-.pf-new-category-cancel {
-  background: #f3f4f6;
-  color: #6b7280;
-}
-
-.pf-new-category-cancel:hover { background: #e5e7eb; }
 
 @media (max-width: 768px) {
   .pf-grid { grid-template-columns: 1fr; }

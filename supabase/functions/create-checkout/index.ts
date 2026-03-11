@@ -13,11 +13,12 @@ Deno.serve(async (req) => {
   }
 
   try {
+    const platformSecretKey = Deno.env.get("STRIPE_SECRET_KEY")!;
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
     const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
-    // Get store settings (owner's Stripe keys)
+    // Get store settings (connected Stripe account ID)
     const { data: settings, error: settingsError } = await supabase
       .from("store_settings")
       .select("*")
@@ -31,14 +32,15 @@ Deno.serve(async (req) => {
       );
     }
 
-    if (!settings.stripe_secret_key || !settings.stripe_connected) {
+    if (!settings.stripe_account_id || !settings.stripe_connected) {
       return new Response(
         JSON.stringify({ error: "Payments are not set up yet. The store owner needs to connect Stripe in settings." }),
         { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
-    const stripe = new Stripe(settings.stripe_secret_key, { apiVersion: "2024-06-20" });
+    // Initialize Stripe with the PLATFORM's secret key
+    const stripe = new Stripe(platformSecretKey, { apiVersion: "2024-06-20" });
 
     const { items, success_url, cancel_url, customer_email } = await req.json();
 
@@ -103,7 +105,11 @@ Deno.serve(async (req) => {
       },
     ];
 
-    const session = await stripe.checkout.sessions.create(sessionParams);
+    // Create the checkout session ON the connected account (direct charge)
+    const session = await stripe.checkout.sessions.create(
+      sessionParams,
+      { stripeAccount: settings.stripe_account_id }
+    );
 
     return new Response(
       JSON.stringify({ url: session.url, sessionId: session.id }),

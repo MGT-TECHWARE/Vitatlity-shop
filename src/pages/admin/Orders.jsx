@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { supabase } from '../../lib/supabase';
+import { supabaseAdmin } from '../../lib/supabaseAdmin';
 import { formatCurrency } from '../../utils/formatCurrency';
 import './Orders.css';
 
@@ -11,24 +11,43 @@ const statusColors = {
   cancelled: 'ao-status--cancelled',
 };
 
+const statusOptions = ['pending', 'processing', 'shipped', 'delivered', 'cancelled'];
+
 export default function AdminOrders() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [statusFilter, setStatusFilter] = useState('all');
+  const [updatingId, setUpdatingId] = useState(null);
 
   useEffect(() => {
-    async function fetchOrders() {
-      setLoading(true);
-      const { data, error } = await supabase
-        .from('orders')
-        .select('*')
-        .order('created_at', { ascending: false });
-
-      if (!error && data) setOrders(data);
-      setLoading(false);
-    }
     fetchOrders();
   }, []);
+
+  async function fetchOrders() {
+    setLoading(true);
+    const { data, error } = await supabaseAdmin
+      .from('orders')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (!error && data) setOrders(data);
+    setLoading(false);
+  }
+
+  const handleStatusChange = async (orderId, newStatus) => {
+    setUpdatingId(orderId);
+    const { error } = await supabaseAdmin
+      .from('orders')
+      .update({ status: newStatus, updated_at: new Date().toISOString() })
+      .eq('id', orderId);
+
+    if (!error) {
+      setOrders(prev => prev.map(o =>
+        o.id === orderId ? { ...o, status: newStatus } : o
+      ));
+    }
+    setUpdatingId(null);
+  };
 
   const filtered = useMemo(() => {
     if (statusFilter === 'all') return orders;
@@ -81,9 +100,16 @@ export default function AdminOrders() {
                     </span>
                   </td>
                   <td>
-                    <span className={`ao-status ${statusColors[o.status] || ''}`}>
-                      {o.status}
-                    </span>
+                    <select
+                      value={o.status}
+                      onChange={(e) => handleStatusChange(o.id, e.target.value)}
+                      disabled={updatingId === o.id}
+                      className={`ao-status-select ${statusColors[o.status] || ''}`}
+                    >
+                      {statusOptions.map(s => (
+                        <option key={s} value={s}>{s.charAt(0).toUpperCase() + s.slice(1)}</option>
+                      ))}
+                    </select>
                   </td>
                   <td className="ao-date">{new Date(o.created_at).toLocaleDateString()}</td>
                 </tr>

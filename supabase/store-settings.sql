@@ -8,9 +8,7 @@ CREATE TABLE IF NOT EXISTS public.store_settings (
   tax_rate numeric(5,2) NOT NULL DEFAULT 8.25,
   shipping_flat numeric(10,2) NOT NULL DEFAULT 5.99,
   free_shipping_min numeric(10,2) NOT NULL DEFAULT 75.00,
-  stripe_publishable_key text DEFAULT '',
-  stripe_secret_key text DEFAULT '',
-  stripe_webhook_secret text DEFAULT '',
+  stripe_account_id text DEFAULT '',
   stripe_connected boolean NOT NULL DEFAULT false,
   updated_at timestamptz DEFAULT now()
 );

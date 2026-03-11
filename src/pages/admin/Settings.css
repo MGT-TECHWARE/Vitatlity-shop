@@ -5,16 +5,17 @@
 .as-loading {
   padding: 40px;
   text-align: center;
-  color: #9ca3af;
+  color: var(--admin-text-muted);
   font-size: 0.88rem;
 }
 
 .as-section {
-  background: #ffffff;
-  border: 1px solid #eef0f4;
+  background: var(--admin-card);
+  border: 1px solid var(--admin-border);
   border-radius: 14px;
   padding: 24px;
   margin-bottom: 20px;
+  transition: background 0.25s ease, border-color 0.25s ease;
 }
 
 .as-section-header {
@@ -31,7 +32,7 @@
 .as-section-title {
   font-size: 0.92rem;
   font-weight: 600;
-  color: #1a1d26;
+  color: var(--admin-text);
   margin-bottom: 20px;
   letter-spacing: -0.01em;
   display: flex;
@@ -44,7 +45,7 @@
   gap: 6px;
   font-size: 0.78rem;
   font-weight: 600;
-  color: #6b7280;
+  color: var(--admin-text-secondary);
   margin-bottom: 16px;
 }
 
@@ -55,23 +56,23 @@
 .as-input,
 .as-select {
   padding: 10px 14px;
-  border: 1.5px solid #eef0f4;
+  border: 1.5px solid var(--admin-border);
   border-radius: 10px;
   font-size: 0.85rem;
-  color: #1a1d26;
+  color: var(--admin-text);
   outline: none;
   transition: all 0.2s ease;
   font-family: inherit;
   width: 100%;
   box-sizing: border-box;
-  background: #f9fafb;
+  background: var(--admin-input-bg);
 }
 
 .as-input:focus,
 .as-select:focus {
-  border-color: #6366f1;
-  background: #ffffff;
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.08);
+  border-color: var(--admin-primary);
+  background: var(--admin-card);
+  box-shadow: 0 0 0 3px var(--admin-primary-glow);
 }
 
 .as-input--mono {
@@ -99,15 +100,15 @@
 }
 
 .as-badge--success {
-  background: rgba(16, 185, 129, 0.1);
-  color: #059669;
+  background: var(--admin-success-bg);
+  color: var(--admin-success-text);
 }
 
 .as-badge-dot {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #10b981;
+  background: var(--admin-success);
   flex-shrink: 0;
 }
 
@@ -117,8 +118,8 @@
   align-items: center;
   gap: 14px;
   padding: 16px;
-  background: #ecfdf5;
-  border: 1.5px solid #a7f3d0;
+  background: var(--admin-success-bg);
+  border: 1.5px solid var(--admin-success-border);
   border-radius: 12px;
   margin-bottom: 12px;
 }
@@ -127,8 +128,8 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: #d1fae5;
-  color: #059669;
+  background: var(--admin-success-deep-bg);
+  color: var(--admin-success-text);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -144,22 +145,22 @@
 
 .as-stripe-status-text strong {
   font-size: 0.88rem;
-  color: #065f46;
+  color: var(--admin-success-deep-text);
 }
 
 .as-stripe-status-text span {
   font-size: 0.76rem;
-  color: #047857;
+  color: var(--admin-success-mid-text);
 }
 
 .as-stripe-disconnect {
   padding: 6px 14px;
-  border: 1.5px solid #fecaca;
+  border: 1.5px solid var(--admin-danger-border);
   border-radius: 8px;
   font-size: 0.75rem;
   font-weight: 600;
-  color: #ef4444;
-  background: white;
+  color: var(--admin-danger);
+  background: var(--admin-card);
   cursor: pointer;
   transition: all 0.15s ease;
   font-family: inherit;
@@ -167,8 +168,8 @@
 }
 
 .as-stripe-disconnect:hover {
-  background: #fef2f2;
-  border-color: #ef4444;
+  background: var(--admin-danger-bg);
+  border-color: var(--admin-danger);
 }
 
 /* ── Setup Steps ── */
@@ -189,7 +190,7 @@
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: #6366f1;
+  background: var(--admin-primary);
   color: white;
   font-size: 0.75rem;
   font-weight: 700;
@@ -208,17 +209,17 @@
 
 .as-step-content strong {
   font-size: 0.85rem;
-  color: #1a1d26;
+  color: var(--admin-text);
 }
 
 .as-step-content span {
   font-size: 0.78rem;
-  color: #6b7280;
+  color: var(--admin-text-secondary);
   line-height: 1.5;
 }
 
 .as-step-content a {
-  color: #6366f1;
+  color: var(--admin-primary);
   font-weight: 600;
   text-decoration: none;
 }
@@ -229,7 +230,7 @@
 
 /* ── Stripe Fields ── */
 .as-stripe-fields {
-  border-top: 1px solid #f3f4f6;
+  border-top: 1px solid var(--admin-border-light);
   padding-top: 20px;
 }
 
@@ -251,15 +252,15 @@
   border-radius: 6px;
   font-size: 0.72rem;
   font-weight: 600;
-  color: #6366f1;
-  background: rgba(99, 102, 241, 0.08);
+  color: var(--admin-primary);
+  background: var(--admin-primary-glow);
   cursor: pointer;
   font-family: inherit;
   transition: background 0.15s ease;
 }
 
 .as-secret-toggle:hover {
-  background: rgba(99, 102, 241, 0.15);
+  background: var(--admin-primary-bg);
 }
 
 /* ── Notices ── */
@@ -273,15 +274,15 @@
 }
 
 .as-notice--warn {
-  background: #fffbeb;
-  color: #92400e;
-  border: 1px solid #fde68a;
+  background: var(--admin-warning-bg);
+  color: var(--admin-warning-text);
+  border: 1px solid var(--admin-warning-border);
 }
 
 .as-notice--info {
-  background: #f0fdf4;
-  color: #166534;
-  border: 1px solid #bbf7d0;
+  background: var(--admin-info-notice-bg);
+  color: var(--admin-info-notice-text);
+  border: 1px solid var(--admin-info-notice-border);
 }
 
 /* ── Test Button ── */
@@ -290,20 +291,20 @@
   align-items: center;
   gap: 8px;
   padding: 10px 20px;
-  border: 1.5px solid #eef0f4;
+  border: 1.5px solid var(--admin-border);
   border-radius: 10px;
   font-size: 0.82rem;
   font-weight: 600;
-  color: #374151;
-  background: white;
+  color: var(--admin-text-strong);
+  background: var(--admin-card);
   cursor: pointer;
   transition: all 0.15s ease;
   font-family: inherit;
 }
 
 .as-test-btn:hover {
-  border-color: #6366f1;
-  color: #6366f1;
+  border-color: var(--admin-primary);
+  color: var(--admin-primary);
 }
 
 .as-test-btn:disabled {
@@ -319,8 +320,8 @@
 .as-spinner {
   width: 14px;
   height: 14px;
-  border: 2px solid #d1d5db;
-  border-top-color: #6366f1;
+  border: 2px solid var(--admin-border-medium);
+  border-top-color: var(--admin-primary);
   border-radius: 50%;
   animation: asSpin 0.6s linear infinite;
   flex-shrink: 0;
@@ -336,14 +337,14 @@
   align-items: center;
   gap: 10px;
   padding: 20px;
-  color: #6b7280;
+  color: var(--admin-text-secondary);
   font-size: 0.82rem;
   justify-content: center;
 }
 
 .as-stripe-dash {
   margin-top: 16px;
-  border: 1.5px solid #eef0f4;
+  border: 1.5px solid var(--admin-border);
   border-radius: 12px;
   overflow: hidden;
 }
@@ -353,15 +354,15 @@
   align-items: center;
   gap: 12px;
   padding: 16px;
-  background: #f9fafb;
-  border-bottom: 1px solid #eef0f4;
+  background: var(--admin-input-bg);
+  border-bottom: 1px solid var(--admin-border);
 }
 
 .as-stripe-dash-avatar {
   width: 38px;
   height: 38px;
   border-radius: 10px;
-  background: linear-gradient(135deg, #635bff, #7c3aed);
+  background: var(--admin-stripe-gradient);
   color: white;
   font-size: 0.92rem;
   font-weight: 700;
@@ -382,12 +383,12 @@
 .as-stripe-dash-name {
   font-size: 0.85rem;
   font-weight: 600;
-  color: #1a1d26;
+  color: var(--admin-text);
 }
 
 .as-stripe-dash-email {
   font-size: 0.72rem;
-  color: #9ca3af;
+  color: var(--admin-text-muted);
 }
 
 .as-stripe-dash-link {
@@ -398,22 +399,22 @@
   border-radius: 8px;
   font-size: 0.72rem;
   font-weight: 600;
-  color: #6366f1;
-  background: rgba(99, 102, 241, 0.08);
+  color: var(--admin-primary);
+  background: var(--admin-primary-glow);
   text-decoration: none;
   white-space: nowrap;
   transition: background 0.15s ease;
 }
 
 .as-stripe-dash-link:hover {
-  background: rgba(99, 102, 241, 0.15);
+  background: var(--admin-primary-bg);
 }
 
 /* Balances */
 .as-stripe-dash-balances {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  border-bottom: 1px solid #eef0f4;
+  border-bottom: 1px solid var(--admin-border);
 }
 
 .as-stripe-dash-balance-card {
@@ -424,7 +425,7 @@
 }
 
 .as-stripe-dash-balance-card:first-child {
-  border-right: 1px solid #eef0f4;
+  border-right: 1px solid var(--admin-border);
 }
 
 .as-stripe-dash-balance-label {
@@ -432,17 +433,17 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: #9ca3af;
+  color: var(--admin-text-muted);
 }
 
 .as-stripe-dash-balance-amount {
   font-size: 1.25rem;
   font-weight: 700;
-  color: #374151;
+  color: var(--admin-text-strong);
 }
 
 .as-stripe-dash-balance-amount--available {
-  color: #059669;
+  color: var(--admin-success-text);
 }
 
 /* Recent Payments */
@@ -455,19 +456,19 @@
   align-items: center;
   justify-content: space-between;
   padding: 12px 16px;
-  border-bottom: 1px solid #f3f4f6;
+  border-bottom: 1px solid var(--admin-border-light);
 }
 
 .as-stripe-dash-payments-header span {
   font-size: 0.78rem;
   font-weight: 600;
-  color: #374151;
+  color: var(--admin-text-strong);
 }
 
 .as-stripe-dash-payments-header a {
   font-size: 0.72rem;
   font-weight: 600;
-  color: #6366f1;
+  color: var(--admin-primary);
   text-decoration: none;
 }
 
@@ -485,7 +486,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 10px 16px;
-  border-bottom: 1px solid #f9fafb;
+  border-bottom: 1px solid var(--admin-border-light);
   transition: background 0.1s ease;
 }
 
@@ -494,7 +495,7 @@
 }
 
 .as-stripe-dash-payment:hover {
-  background: #fafbfc;
+  background: var(--admin-hover);
 }
 
 .as-stripe-dash-payment-info {
@@ -507,7 +508,7 @@
 .as-stripe-dash-payment-desc {
   font-size: 0.8rem;
   font-weight: 500;
-  color: #1a1d26;
+  color: var(--admin-text);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -516,7 +517,7 @@
 
 .as-stripe-dash-payment-date {
   font-size: 0.68rem;
-  color: #9ca3af;
+  color: var(--admin-text-muted);
 }
 
 .as-stripe-dash-payment-right {
@@ -529,7 +530,7 @@
 .as-stripe-dash-payment-amount {
   font-size: 0.82rem;
   font-weight: 600;
-  color: #1a1d26;
+  color: var(--admin-text);
 }
 
 .as-stripe-dash-payment-status {
@@ -542,31 +543,74 @@
 }
 
 .as-stripe-dash-payment-status--succeeded {
-  background: #ecfdf5;
-  color: #059669;
+  background: var(--admin-success-bg);
+  color: var(--admin-success-text);
 }
 
 .as-stripe-dash-payment-status--pending {
-  background: #fffbeb;
-  color: #d97706;
+  background: var(--admin-warning-bg);
+  color: var(--admin-warning);
 }
 
 .as-stripe-dash-payment-status--failed {
-  background: #fef2f2;
-  color: #dc2626;
+  background: var(--admin-danger-bg);
+  color: var(--admin-danger);
 }
 
 .as-stripe-dash-empty {
   padding: 24px 16px;
   text-align: center;
   font-size: 0.78rem;
-  color: #9ca3af;
+  color: var(--admin-text-muted);
+}
+
+/* ── Connect with Stripe Button ── */
+.as-stripe-setup {
+  text-align: center;
+  padding: 8px 0;
+}
+
+.as-stripe-setup-info {
+  margin-bottom: 20px;
+}
+
+.as-stripe-setup-info p {
+  font-size: 0.82rem;
+  color: var(--admin-text-secondary);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.as-stripe-connect-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 32px;
+  background: #635bff;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.as-stripe-connect-btn:hover {
+  background: #4f46e5;
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.3);
+  transform: translateY(-1px);
+}
+
+.as-stripe-connect-btn:active {
+  transform: translateY(0);
 }
 
 /* ── Save Button ── */
 .as-save {
   padding: 12px 32px;
-  background: #6366f1;
+  background: var(--admin-primary);
   color: white;
   border: none;
   border-radius: 10px;
@@ -578,8 +622,8 @@
 }
 
 .as-save:hover {
-  background: #4f46e5;
-  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
+  background: var(--admin-primary-hover);
+  box-shadow: 0 4px 12px var(--admin-primary-strong-glow);
 }
 
 .as-save:disabled {

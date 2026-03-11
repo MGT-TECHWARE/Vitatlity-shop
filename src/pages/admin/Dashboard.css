@@ -7,18 +7,18 @@
 }
 
 .dash-stat-card {
-  background: #ffffff;
+  background: var(--admin-card);
   border-radius: 14px;
   padding: 20px;
-  border: 1px solid #eef0f4;
+  border: 1px solid var(--admin-border);
   display: flex;
   align-items: center;
   gap: 16px;
-  transition: box-shadow 0.2s ease;
+  transition: box-shadow 0.2s ease, background 0.25s ease, border-color 0.25s ease;
 }
 
 .dash-stat-card:hover {
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  box-shadow: var(--admin-card-shadow);
 }
 
 .dash-stat-icon {
@@ -37,7 +37,7 @@
 
 .dash-stat-label {
   font-size: 0.75rem;
-  color: #9ca3b4;
+  color: var(--admin-text-muted);
   font-weight: 500;
   margin-bottom: 2px;
 }
@@ -45,17 +45,18 @@
 .dash-stat-value {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #1a1d26;
+  color: var(--admin-text);
   letter-spacing: -0.02em;
   line-height: 1.2;
 }
 
 /* ── Cards ── */
 .dash-card {
-  background: #ffffff;
+  background: var(--admin-card);
   border-radius: 14px;
-  border: 1px solid #eef0f4;
+  border: 1px solid var(--admin-border);
   overflow: hidden;
+  transition: background 0.25s ease, border-color 0.25s ease;
 }
 
 .dash-card-header {
@@ -68,7 +69,7 @@
 .dash-card-header h2 {
   font-size: 0.92rem;
   font-weight: 600;
-  color: #1a1d26;
+  color: var(--admin-text);
   letter-spacing: -0.01em;
 }
 
@@ -81,13 +82,13 @@
 .dash-card-action {
   font-size: 0.78rem;
   font-weight: 500;
-  color: #6366f1;
+  color: var(--admin-primary);
   text-decoration: none;
   transition: color 0.15s;
 }
 
 .dash-card-action:hover {
-  color: #4f46e5;
+  color: var(--admin-primary-hover);
 }
 
 /* ── Charts Row ── */
@@ -102,7 +103,7 @@
 .dash-chart-tabs {
   display: flex;
   gap: 2px;
-  background: #f5f6fa;
+  background: var(--admin-tab-bg);
   border-radius: 8px;
   padding: 3px;
 }
@@ -114,21 +115,21 @@
   border-radius: 6px;
   font-size: 0.75rem;
   font-weight: 500;
-  color: #9ca3b4;
+  color: var(--admin-text-muted);
   cursor: pointer;
   transition: all 0.15s ease;
   font-family: inherit;
 }
 
 .dash-chart-tab:hover {
-  color: #6b7280;
+  color: var(--admin-text-secondary);
 }
 
 .dash-chart-tab.active {
-  background: #ffffff;
-  color: #1a1d26;
+  background: var(--admin-tab-active);
+  color: var(--admin-text);
   font-weight: 600;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  box-shadow: var(--admin-tab-shadow);
 }
 
 /* ── Chart Legend ── */
@@ -143,7 +144,7 @@
   align-items: center;
   gap: 6px;
   font-size: 0.72rem;
-  color: #9ca3b4;
+  color: var(--admin-text-muted);
   font-weight: 500;
 }
 
@@ -160,7 +161,7 @@
 
 /* ── Custom Tooltip ── */
 .dash-tooltip {
-  background: #1a1d26;
+  background: var(--admin-tooltip-bg);
   border-radius: 10px;
   padding: 12px 14px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
@@ -168,7 +169,7 @@
 
 .dash-tooltip-label {
   font-size: 0.72rem;
-  color: #9ca3b4;
+  color: var(--admin-text-muted);
   font-weight: 500;
   margin-bottom: 6px;
 }
@@ -178,7 +179,7 @@
   align-items: center;
   gap: 8px;
   font-size: 0.78rem;
-  color: #ffffff;
+  color: var(--admin-tooltip-text);
   padding: 2px 0;
 }
 
@@ -192,7 +193,7 @@
 .dash-tooltip-name {
   flex: 1;
   font-weight: 400;
-  color: #b0b7c8;
+  color: var(--admin-text-faint);
 }
 
 .dash-tooltip-value {
@@ -216,14 +217,14 @@
 .dash-donut-total {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #1a1d26;
+  color: var(--admin-text);
   letter-spacing: -0.02em;
   line-height: 1;
 }
 
 .dash-donut-label {
   font-size: 0.68rem;
-  color: #9ca3b4;
+  color: var(--admin-text-muted);
   font-weight: 500;
   margin-top: 2px;
 }
@@ -251,20 +252,20 @@
 
 .dash-category-name {
   flex: 1;
-  color: #4b5563;
+  color: var(--admin-text-medium);
   font-weight: 500;
   text-transform: capitalize;
 }
 
 .dash-category-count {
-  color: #9ca3b4;
+  color: var(--admin-text-muted);
   font-weight: 500;
   min-width: 24px;
   text-align: right;
 }
 
 .dash-category-pct {
-  color: #1a1d26;
+  color: var(--admin-text);
   font-weight: 600;
   min-width: 32px;
   text-align: right;
@@ -290,7 +291,7 @@
   align-items: flex-start;
   gap: 12px;
   padding: 12px 0;
-  border-bottom: 1px solid #f5f6fa;
+  border-bottom: 1px solid var(--admin-border-light);
 }
 
 .dash-activity-item:last-child {
@@ -313,19 +314,19 @@
 .dash-activity-title {
   font-size: 0.82rem;
   font-weight: 600;
-  color: #1a1d26;
+  color: var(--admin-text);
   line-height: 1.3;
 }
 
 .dash-activity-desc {
   font-size: 0.75rem;
-  color: #9ca3b4;
+  color: var(--admin-text-muted);
   margin-top: 1px;
 }
 
 .dash-activity-time {
   font-size: 0.68rem;
-  color: #b0b7c8;
+  color: var(--admin-text-faint);
   font-weight: 500;
   white-space: nowrap;
   flex-shrink: 0;
@@ -346,21 +347,21 @@
   padding: 10px 20px;
   font-size: 0.7rem;
   font-weight: 600;
-  color: #9ca3b4;
+  color: var(--admin-text-muted);
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  border-bottom: 1px solid #eef0f4;
+  border-bottom: 1px solid var(--admin-border);
   white-space: nowrap;
 }
 
 .dash-table td {
   padding: 12px 20px;
-  border-bottom: 1px solid #f5f6fa;
+  border-bottom: 1px solid var(--admin-border-light);
   vertical-align: middle;
 }
 
 .dash-table tbody tr:hover td {
-  background: #fafaff;
+  background: var(--admin-hover);
 }
 
 .dash-table tbody tr:last-child td {
@@ -393,7 +394,7 @@
 .dash-product-name {
   font-size: 0.82rem;
   font-weight: 600;
-  color: #1a1d26;
+  color: var(--admin-text);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -403,27 +404,27 @@
 .dash-stock-value {
   font-size: 0.82rem;
   font-weight: 500;
-  color: #6b7280;
+  color: var(--admin-text-secondary);
 }
 
 .dash-price-value {
   font-size: 0.82rem;
   font-weight: 600;
-  color: #1a1d26;
+  color: var(--admin-text);
 }
 
 .dash-sales-value {
   font-size: 0.82rem;
   font-weight: 600;
-  color: #6366f1;
+  color: var(--admin-primary);
 }
 
 /* ── Category Badge ── */
 .dash-category-badge {
   font-size: 0.72rem;
   font-weight: 500;
-  color: #6366f1;
-  background: #eef0ff;
+  color: var(--admin-primary);
+  background: var(--admin-primary-bg);
   padding: 3px 8px;
   border-radius: 6px;
   text-transform: capitalize;
@@ -441,7 +442,7 @@
 .dash-empty-chart p,
 .dash-empty-state p {
   font-size: 0.82rem;
-  color: #b0b7c8;
+  color: var(--admin-text-faint);
   text-align: center;
 }
 

@@ -22,13 +22,19 @@ const ACCEPTED_TYPES = [
 
 const ACCEPTED_EXTENSIONS = '.jpg,.jpeg,.png,.gif,.webp,.svg,.avif,.bmp,.tiff,.tif';
 
+function parseCategories(val) {
+  if (Array.isArray(val)) return val;
+  if (typeof val === 'string' && val.trim()) return val.split(',').map(s => s.trim()).filter(Boolean);
+  return [];
+}
+
 const defaultProduct = {
   name: '',
   description: '',
   shortDescription: '',
   price: '',
   compareAtPrice: '',
-  category: 'vitamins',
+  categories: [],
   stock: '100',
   sku: '',
   image: '',
@@ -45,6 +51,7 @@ export default function AdminProductForm({ initialData, onSubmit, submitLabel = 
   const [form, setForm] = useState({
     ...defaultProduct,
     ...initialData,
+    categories: parseCategories(initialData?.category || initialData?.categories),
     tags: Array.isArray(initialData?.tags) ? initialData.tags.join(', ') : (initialData?.tags || ''),
     dietaryFlags: Array.isArray(initialData?.dietaryFlags) ? initialData.dietaryFlags.join(', ') : (initialData?.dietaryFlags || ''),
   });
@@ -53,9 +60,18 @@ export default function AdminProductForm({ initialData, onSubmit, submitLabel = 
   const [uploadError, setUploadError] = useState('');
   const [dragActive, setDragActive] = useState(false);
   const fileInputRef = useRef(null);
-  const [showNewCategory, setShowNewCategory] = useState(false);
   const [newCategoryName, setNewCategoryName] = useState('');
   const [addingCategory, setAddingCategory] = useState(false);
+
+  const toggleCategory = (slug) => {
+    setForm(prev => {
+      const cats = prev.categories;
+      if (cats.includes(slug)) {
+        return { ...prev, categories: cats.filter(s => s !== slug) };
+      }
+      return { ...prev, categories: [...cats, slug] };
+    });
+  };
 
   const handleAddCategory = async () => {
     if (!newCategoryName.trim()) return;
@@ -63,9 +79,8 @@ export default function AdminProductForm({ initialData, onSubmit, submitLabel = 
     try {
       const slug = newCategoryName.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
       const created = await addCategory({ name: newCategoryName.trim(), slug });
-      handleChange('category', created.slug);
+      setForm(prev => ({ ...prev, categories: [...prev.categories, created.slug] }));
       setNewCategoryName('');
-      setShowNewCategory(false);
     } catch (err) {
       setUploadError(err.message || 'Failed to add category');
     } finally {
@@ -156,6 +171,7 @@ export default function AdminProductForm({ initialData, onSubmit, submitLabel = 
     try {
       await onSubmit({
         ...form,
+        category: form.categories.join(','),
         price: Number(form.price) || 0,
         compareAtPrice: form.compareAtPrice ? Number(form.compareAtPrice) : null,
         stock: Number(form.stock) || 0,
@@ -330,22 +346,39 @@ export default function AdminProductForm({ initialData, onSubmit, submitLabel = 
         {/* Right Column */}
         <div className="pf-sidebar">
           <div className="pf-section">
-            <h3 className="pf-section-title">Category</h3>
-            <select value={form.category} onChange={(e) => {
-              if (e.target.value === '__new__') {
-                setShowNewCategory(true);
-              } else {
-                handleChange('category', e.target.value);
-                setShowNewCategory(false);
-              }
-            }} className="pf-select">
-              {categories.map(c => (
-                <option key={c.slug} value={c.slug}>{c.name}</option>
-              ))}
-              <option value="__new__">+ Add New Category</option>
-            </select>
-            {showNewCategory && (
-              <div className="pf-new-category">
+            <h3 className="pf-section-title">
+              Categories
+              {form.categories.length > 0 && (
+                <span className="pf-category-count">{form.categories.length} selected</span>
+              )}
+            </h3>
+            <div className="pf-category-list">
+              {categories.map(c => {
+                const isSelected = form.categories.includes(c.slug);
+                return (
+                  <button
+                    key={c.slug}
+                    type="button"
+                    className={`pf-category-item${isSelected ? ' pf-category-item--active' : ''}`}
+                    onClick={() => toggleCategory(c.slug)}
+                  >
+                    <span className="pf-category-check">
+                      {isSelected ? (
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                          <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                      ) : (
+                        <span className="pf-category-check-empty" />
+                      )}
+                    </span>
+                    {c.name}
+                  </button>
+                );
+              })}
+            </div>
+            <div className="pf-new-category">
+              <div className="pf-new-category-header">Add New Category</div>
+              <div className="pf-new-category-row">
                 <input
                   type="text"
                   value={newCategoryName}
@@ -354,16 +387,11 @@ export default function AdminProductForm({ initialData, onSubmit, submitLabel = 
                   className="pf-input"
                   onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), handleAddCategory())}
                 />
-                <div className="pf-new-category-actions">
-                  <button type="button" className="pf-new-category-btn pf-new-category-save" onClick={handleAddCategory} disabled={addingCategory}>
-                    {addingCategory ? 'Adding...' : 'Add'}
-                  </button>
-                  <button type="button" className="pf-new-category-btn pf-new-category-cancel" onClick={() => { setShowNewCategory(false); setNewCategoryName(''); }}>
-                    Cancel
-                  </button>
-                </div>
+                <button type="button" className="pf-new-category-btn pf-new-category-save" onClick={handleAddCategory} disabled={addingCategory || !newCategoryName.trim()}>
+                  {addingCategory ? '...' : 'Add'}
+                </button>
               </div>
-            )}
+            </div>
           </div>
 
           <div className="pf-section">

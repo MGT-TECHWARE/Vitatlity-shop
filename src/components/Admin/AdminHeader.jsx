@@ -20,7 +20,7 @@ const subtitles = {
   '/admin/settings': 'Configure your store preferences.',
 };
 
-export default function AdminHeader() {
+export default function AdminHeader({ theme, toggleTheme }) {
   const location = useLocation();
   const path = location.pathname;
   const [search, setSearch] = useState('');
@@ -58,6 +58,22 @@ export default function AdminHeader() {
           />
           <span className="admin-header-search-shortcut">Ctrl+K</span>
         </div>
+        <button
+          className="admin-header-theme-toggle"
+          onClick={toggleTheme}
+          title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+        >
+          {theme === 'light' ? (
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <circle cx="10" cy="10" r="3.5" stroke="currentColor" strokeWidth="1.5"/>
+              <path d="M10 2.5v1.5M10 16v1.5M2.5 10H4M16 10h1.5M4.93 4.93l1.06 1.06M13.99 13.99l1.07 1.07M15.07 4.93l-1.06 1.06M6 14l-1.07 1.07" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+            </svg>
+          ) : (
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M17.293 12.707A7.5 7.5 0 017.293 2.707a7.5 7.5 0 1010 10z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          )}
+        </button>
         <button className="admin-header-icon-btn">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
             <path d="M10 3a5 5 0 015 5v2.5l1.5 2.5H3.5L5 10.5V8a5 5 0 015-5z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>

@@ -1,7 +1,157 @@
+/* ══════════════════════════════════════════
+   Admin Theme Variables
+   ══════════════════════════════════════════ */
+
+.admin {
+  /* Surface */
+  --admin-bg: #f5f6fa;
+  --admin-card: #ffffff;
+
+  /* Borders */
+  --admin-border: #eef0f4;
+  --admin-border-light: #f5f6fa;
+  --admin-border-medium: #d1d5db;
+  --admin-border-strong: #e5e7eb;
+
+  /* Text */
+  --admin-text: #1a1d26;
+  --admin-text-strong: #374151;
+  --admin-text-medium: #4b5563;
+  --admin-text-secondary: #6b7280;
+  --admin-text-muted: #9ca3b4;
+  --admin-text-faint: #b0b7c8;
+
+  /* Inputs & Tables */
+  --admin-input-bg: #f9fafb;
+  --admin-table-head: #fafbfc;
+  --admin-hover: #fafaff;
+
+  /* Primary */
+  --admin-primary: #6366f1;
+  --admin-primary-hover: #4f46e5;
+  --admin-primary-bg: #eef0ff;
+  --admin-primary-glow: rgba(99, 102, 241, 0.08);
+  --admin-primary-strong-glow: rgba(99, 102, 241, 0.25);
+
+  /* Tabs */
+  --admin-tab-bg: #f5f6fa;
+  --admin-tab-active: #ffffff;
+  --admin-tab-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+
+  /* Status */
+  --admin-success-bg: #ecfdf5;
+  --admin-success: #10b981;
+  --admin-success-text: #059669;
+  --admin-success-border: #a7f3d0;
+  --admin-success-deep-bg: #d1fae5;
+  --admin-success-deep-text: #065f46;
+  --admin-success-mid-text: #047857;
+  --admin-danger-bg: #fef2f2;
+  --admin-danger: #ef4444;
+  --admin-danger-border: #fecaca;
+  --admin-danger-hover-bg: #fee2e2;
+  --admin-warning-bg: #fffbeb;
+  --admin-warning: #f59e0b;
+  --admin-warning-text: #92400e;
+  --admin-warning-border: #fde68a;
+  --admin-info-bg: #eff6ff;
+  --admin-info: #3b82f6;
+  --admin-info-notice-bg: #f0fdf4;
+  --admin-info-notice-text: #166534;
+  --admin-info-notice-border: #bbf7d0;
+
+  /* Misc */
+  --admin-badge-bg: #ef4444;
+  --admin-avatar-gradient: linear-gradient(135deg, #6366f1, #818cf8);
+  --admin-card-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  --admin-tooltip-bg: #1a1d26;
+  --admin-tooltip-text: #ffffff;
+  --admin-logo-filter: none;
+  --admin-signout-hover-bg: #fee2e2;
+  --admin-signout-hover-color: #dc2626;
+  --admin-stripe-gradient: linear-gradient(135deg, #635bff, #7c3aed);
+}
+
+.admin[data-theme="dark"] {
+  /* Surface */
+  --admin-bg: #0c0e16;
+  --admin-card: #151821;
+
+  /* Borders */
+  --admin-border: #232738;
+  --admin-border-light: #1c1f2e;
+  --admin-border-medium: #3a3f54;
+  --admin-border-strong: #2e3348;
+
+  /* Text */
+  --admin-text: #e4e6ed;
+  --admin-text-strong: #cdd0da;
+  --admin-text-medium: #a8adb8;
+  --admin-text-secondary: #8b90a0;
+  --admin-text-muted: #6b7080;
+  --admin-text-faint: #4a5068;
+
+  /* Inputs & Tables */
+  --admin-input-bg: #1a1e2c;
+  --admin-table-head: #191c28;
+  --admin-hover: #1a1e2e;
+
+  /* Primary */
+  --admin-primary: #818cf8;
+  --admin-primary-hover: #6366f1;
+  --admin-primary-bg: rgba(99, 102, 241, 0.15);
+  --admin-primary-glow: rgba(129, 140, 248, 0.12);
+  --admin-primary-strong-glow: rgba(129, 140, 248, 0.3);
+
+  /* Tabs */
+  --admin-tab-bg: #1a1e2c;
+  --admin-tab-active: #232738;
+  --admin-tab-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+
+  /* Status */
+  --admin-success-bg: rgba(16, 185, 129, 0.12);
+  --admin-success: #34d399;
+  --admin-success-text: #34d399;
+  --admin-success-border: rgba(16, 185, 129, 0.25);
+  --admin-success-deep-bg: rgba(16, 185, 129, 0.15);
+  --admin-success-deep-text: #6ee7b7;
+  --admin-success-mid-text: #34d399;
+  --admin-danger-bg: rgba(239, 68, 68, 0.12);
+  --admin-danger: #f87171;
+  --admin-danger-border: rgba(239, 68, 68, 0.3);
+  --admin-danger-hover-bg: rgba(239, 68, 68, 0.18);
+  --admin-warning-bg: rgba(245, 158, 11, 0.12);
+  --admin-warning: #fbbf24;
+  --admin-warning-text: #fbbf24;
+  --admin-warning-border: rgba(245, 158, 11, 0.3);
+  --admin-info-bg: rgba(59, 130, 246, 0.12);
+  --admin-info: #60a5fa;
+  --admin-info-notice-bg: rgba(16, 185, 129, 0.08);
+  --admin-info-notice-text: #34d399;
+  --admin-info-notice-border: rgba(16, 185, 129, 0.2);
+
+  /* Misc */
+  --admin-badge-bg: #ef4444;
+  --admin-avatar-gradient: linear-gradient(135deg, #6366f1, #818cf8);
+  --admin-card-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  --admin-tooltip-bg: #2a2e3e;
+  --admin-tooltip-text: #e4e6ed;
+  --admin-logo-filter: brightness(1.5) contrast(0.85);
+  --admin-signout-hover-bg: rgba(239, 68, 68, 0.15);
+  --admin-signout-hover-color: #f87171;
+  --admin-stripe-gradient: linear-gradient(135deg, #635bff, #7c3aed);
+}
+
+/* ══════════════════════════════════════════
+   Layout
+   ══════════════════════════════════════════ */
+
 .admin {
   display: flex;
   min-height: 100vh;
-  background: #f5f6fa;
+  background: var(--admin-bg);
+  color: var(--admin-text);
+  transition: background 0.25s ease, color 0.25s ease;
 }
 
 .admin-main {

@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { supabaseAdmin } from '../../lib/supabaseAdmin';
+import { supabase } from '../../lib/supabase';
 import './Settings.css';
 
 export default function AdminSettings() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
-  const [showSecret, setShowSecret] = useState(false);
-  const [testingConnection, setTestingConnection] = useState(false);
-  const [connectionStatus, setConnectionStatus] = useState(null);
+  const [connecting, setConnecting] = useState(false);
+  const [connectError, setConnectError] = useState('');
 
   const [storeName, setStoreName] = useState('Nexora');
   const [storeEmail, setStoreEmail] = useState('');
@@ -17,40 +17,34 @@ export default function AdminSettings() {
   const [shippingFlat, setShippingFlat] = useState('5.99');
   const [freeShippingMin, setFreeShippingMin] = useState('75');
 
-  const [stripePk, setStripePk] = useState('');
-  const [stripeSk, setStripeSk] = useState('');
   const [stripeConnected, setStripeConnected] = useState(false);
-
-  // Stripe dashboard data
+  const [onboardingIncomplete, setOnboardingIncomplete] = useState(false);
   const [stripeData, setStripeData] = useState(null);
   const [stripeDataLoading, setStripeDataLoading] = useState(false);
 
-  useEffect(() => {
-    loadSettings();
-  }, []);
-
-  const fetchStripeDashboard = useCallback(async (secretKey) => {
-    if (!secretKey) return;
+  const fetchStripeStatus = useCallback(async () => {
     setStripeDataLoading(true);
-    const headers = { 'Authorization': `Bearer ${secretKey}` };
-
     try {
-      const [accountRes, balanceRes, chargesRes] = await Promise.all([
-        fetch('https://api.stripe.com/v1/account', { headers }),
-        fetch('https://api.stripe.com/v1/balance', { headers }),
-        fetch('https://api.stripe.com/v1/charges?limit=5', { headers }),
-      ]);
-
-      const account = accountRes.ok ? await accountRes.json() : null;
-      const balance = balanceRes.ok ? await balanceRes.json() : null;
-      const charges = chargesRes.ok ? await chargesRes.json() : null;
-
-      setStripeData({ account, balance, charges: charges?.data || [] });
+      const { data, error } = await supabase.functions.invoke('stripe-connect', {
+        body: { action: 'account_status' },
+      });
+      if (!error && data?.connected) {
+        setStripeConnected(true);
+        setOnboardingIncomplete(false);
+        setStripeData(data);
+      } else if (!error && data?.onboarding_incomplete) {
+        setOnboardingIncomplete(true);
+        setStripeConnected(false);
+      }
     } catch {
-      setStripeData(null);
+      // Stripe data fetch failed silently
     } finally {
       setStripeDataLoading(false);
     }
+  }, []);
+
+  useEffect(() => {
+    loadSettings();
   }, []);
 
   const loadSettings = async () => {
@@ -68,48 +62,57 @@ export default function AdminSettings() {
       setTaxRate(String(data.tax_rate ?? '8.25'));
       setShippingFlat(String(data.shipping_flat ?? '5.99'));
       setFreeShippingMin(String(data.free_shipping_min ?? '75'));
-      setStripePk(data.stripe_publishable_key || '');
-      setStripeSk(data.stripe_secret_key || '');
       setStripeConnected(data.stripe_connected || false);
-      if (data.stripe_connected) {
-        setConnectionStatus('valid');
-        fetchStripeDashboard(data.stripe_secret_key);
+      if (data.stripe_account_id) {
+        fetchStripeStatus();
       }
     }
     setLoading(false);
   };
 
-  const getKeyMode = () => {
-    if (stripePk.startsWith('pk_live') || stripeSk.startsWith('sk_live') || stripeSk.startsWith('rk_live')) return 'live';
-    if (stripePk.startsWith('pk_test') || stripeSk.startsWith('sk_test') || stripeSk.startsWith('rk_test')) return 'test';
-    return null;
-  };
-
-  const testConnection = async () => {
-    if (!stripeSk) return;
-    setTestingConnection(true);
-    setConnectionStatus(null);
+  const handleConnectStripe = async () => {
+    setConnecting(true);
+    setConnectError('');
     try {
-      const res = await fetch('https://api.stripe.com/v1/balance', {
-        headers: { 'Authorization': `Bearer ${stripeSk}` },
+      const returnUrl = `${window.location.origin}/admin/settings`;
+      const { data, error } = await supabase.functions.invoke('stripe-connect', {
+        body: { action: 'create_account_link', return_url: returnUrl },
       });
-      if (res.ok) {
-        setConnectionStatus('valid');
-      } else {
-        setConnectionStatus('invalid');
+
+      if (error || data?.error) {
+        setConnectError(data?.error || error?.message || 'Failed to start Stripe setup.');
+        setConnecting(false);
+        return;
+      }
+
+      if (data?.url) {
+        window.location.href = data.url;
       }
     } catch {
-      setConnectionStatus('invalid');
+      setConnectError('Failed to start Stripe setup. Please try again.');
+      setConnecting(false);
+    }
+  };
+
+  const handleDisconnect = async () => {
+    setStripeDataLoading(true);
+    try {
+      await supabase.functions.invoke('stripe-connect', {
+        body: { action: 'disconnect' },
+      });
+      setStripeConnected(false);
+      setOnboardingIncomplete(false);
+      setStripeData(null);
+    } catch {
+      // disconnect failed silently
     } finally {
-      setTestingConnection(false);
+      setStripeDataLoading(false);
     }
   };
 
   const handleSave = async (e) => {
     e.preventDefault();
     setSaving(true);
-
-    const isConnected = !!(stripePk && stripeSk && connectionStatus === 'valid');
 
     const { data: existing } = await supabaseAdmin
       .from('store_settings')
@@ -127,45 +130,14 @@ export default function AdminSettings() {
           tax_rate: Number(taxRate) || 0,
           shipping_flat: Number(shippingFlat) || 0,
           free_shipping_min: Number(freeShippingMin) || 0,
-          stripe_publishable_key: stripePk,
-          stripe_secret_key: stripeSk,
-          stripe_connected: isConnected,
           updated_at: new Date().toISOString(),
         })
         .eq('id', existing.id);
     }
 
-    setStripeConnected(isConnected);
-    if (isConnected) fetchStripeDashboard(stripeSk);
     setSaving(false);
     setSaved(true);
     setTimeout(() => setSaved(false), 2500);
-  };
-
-  const handleDisconnect = async () => {
-    setStripePk('');
-    setStripeSk('');
-    setStripeConnected(false);
-    setConnectionStatus(null);
-    setStripeData(null);
-
-    const { data: existing } = await supabaseAdmin
-      .from('store_settings')
-      .select('id')
-      .limit(1)
-      .single();
-
-    if (existing) {
-      await supabaseAdmin
-        .from('store_settings')
-        .update({
-          stripe_publishable_key: '',
-          stripe_secret_key: '',
-          stripe_connected: false,
-          updated_at: new Date().toISOString(),
-        })
-        .eq('id', existing.id);
-    }
   };
 
   const formatAmount = (amount, curr = 'usd') => {
@@ -180,8 +152,6 @@ export default function AdminSettings() {
       month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit',
     });
   };
-
-  const keyMode = getKeyMode();
 
   if (loading) {
     return <div className="as-loading">Loading settings...</div>;
@@ -199,15 +169,25 @@ export default function AdminSettings() {
             </svg>
             Payments
           </h3>
-          {stripeConnected && connectionStatus === 'valid' && (
+          {stripeConnected && (
             <span className="as-badge as-badge--success">
               <span className="as-badge-dot" />
-              {keyMode === 'live' ? 'Live' : 'Test Mode'}
+              Connected
             </span>
           )}
         </div>
 
-        {stripeConnected && connectionStatus === 'valid' ? (
+        {connecting && (
+          <div className="as-stripe-dash-loading">
+            <span className="as-spinner" /> Setting up Stripe...
+          </div>
+        )}
+
+        {connectError && (
+          <div className="as-notice as-notice--warn">{connectError}</div>
+        )}
+
+        {stripeConnected ? (
           <div className="as-stripe-connected">
             {/* Status bar */}
             <div className="as-stripe-status-card">
@@ -219,20 +199,14 @@ export default function AdminSettings() {
               </div>
               <div className="as-stripe-status-text">
                 <strong>Stripe is connected</strong>
-                <span>Customers can checkout and all payments go to your Stripe account.</span>
+                <span>Customers can checkout and all payments go directly to your Stripe account.</span>
               </div>
               <button type="button" className="as-stripe-disconnect" onClick={handleDisconnect}>
                 Disconnect
               </button>
             </div>
 
-            {keyMode === 'test' && (
-              <div className="as-notice as-notice--warn">
-                You're using test keys — no real charges will be made. Switch to live keys when you're ready to accept real payments.
-              </div>
-            )}
-
-            {/* ── Stripe Mini Dashboard ── */}
+            {/* Stripe Mini Dashboard */}
             {stripeDataLoading ? (
               <div className="as-stripe-dash-loading">
                 <span className="as-spinner" /> Loading your Stripe data...
@@ -242,14 +216,12 @@ export default function AdminSettings() {
                 {/* Account Info */}
                 <div className="as-stripe-dash-account">
                   <div className="as-stripe-dash-avatar">
-                    {stripeData.account?.business_profile?.name?.[0]?.toUpperCase() ||
+                    {stripeData.account?.business_name?.[0]?.toUpperCase() ||
                      stripeData.account?.email?.[0]?.toUpperCase() || 'S'}
                   </div>
                   <div className="as-stripe-dash-account-info">
                     <span className="as-stripe-dash-name">
-                      {stripeData.account?.business_profile?.name ||
-                       stripeData.account?.settings?.dashboard?.display_name ||
-                       'Your Stripe Account'}
+                      {stripeData.account?.business_name || 'Your Stripe Account'}
                     </span>
                     <span className="as-stripe-dash-email">{stripeData.account?.email || ''}</span>
                   </div>
@@ -298,7 +270,7 @@ export default function AdminSettings() {
                       View all
                     </a>
                   </div>
-                  {stripeData.charges.length > 0 ? (
+                  {stripeData.charges?.length > 0 ? (
                     <div className="as-stripe-dash-payments-list">
                       {stripeData.charges.map((charge) => (
                         <div key={charge.id} className="as-stripe-dash-payment">
@@ -330,98 +302,30 @@ export default function AdminSettings() {
               </div>
             ) : null}
           </div>
-        ) : (
-          /* ── Setup state ── */
+        ) : !connecting ? (
+          /* Setup state */
           <div className="as-stripe-setup">
-            <div className="as-stripe-steps">
-              <div className="as-step">
-                <div className="as-step-num">1</div>
-                <div className="as-step-content">
-                  <strong>Create a Stripe account</strong>
-                  <span>Go to <a href="https://dashboard.stripe.com/register" target="_blank" rel="noopener noreferrer">stripe.com</a> and sign up (or log in if you already have one).</span>
-                </div>
-              </div>
-              <div className="as-step">
-                <div className="as-step-num">2</div>
-                <div className="as-step-content">
-                  <strong>Create a restricted API key</strong>
-                  <span>Go to <a href="https://dashboard.stripe.com/apikeys" target="_blank" rel="noopener noreferrer">Developers &rarr; API Keys</a>, click <strong>"Create restricted key"</strong>, and enable these permissions:</span>
-                  <ul style={{ margin: '8px 0 0 16px', fontSize: '13px', color: 'var(--text-secondary, #666)', lineHeight: '1.6' }}>
-                    <li><strong>Checkout Sessions</strong> — Read &amp; Write</li>
-                    <li><strong>Charges</strong> — Read</li>
-                    <li><strong>Balance</strong> — Read</li>
-                  </ul>
-                </div>
-              </div>
-              <div className="as-step">
-                <div className="as-step-num">3</div>
-                <div className="as-step-content">
-                  <strong>Copy your publishable key and restricted key below</strong>
-                  <span>Your publishable key starts with <code>pk_</code> and the restricted key starts with <code>rk_</code>.</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="as-stripe-fields">
-              <label className="as-label">
-                Publishable Key
-                <input
-                  type="text"
-                  value={stripePk}
-                  onChange={(e) => { setStripePk(e.target.value.trim()); setConnectionStatus(null); }}
-                  className="as-input as-input--mono"
-                  placeholder="pk_test_... or pk_live_..."
-                  spellCheck={false}
-                  autoComplete="off"
-                />
-              </label>
-              <label className="as-label">
-                Restricted Key
-                <div className="as-secret-wrap">
-                  <input
-                    type={showSecret ? 'text' : 'password'}
-                    value={stripeSk}
-                    onChange={(e) => { setStripeSk(e.target.value.trim()); setConnectionStatus(null); }}
-                    className="as-input as-input--mono"
-                    placeholder="rk_test_... or rk_live_..."
-                    spellCheck={false}
-                    autoComplete="off"
-                  />
-                  <button type="button" className="as-secret-toggle" onClick={() => setShowSecret(!showSecret)}>
-                    {showSecret ? 'Hide' : 'Show'}
-                  </button>
-                </div>
-              </label>
-
-              {keyMode && stripePk && stripeSk && (
-                <div className={`as-notice ${keyMode === 'live' ? 'as-notice--info' : 'as-notice--warn'}`}>
-                  {keyMode === 'live'
-                    ? 'These are live keys — real charges will be processed.'
-                    : 'These are test keys — no real charges will be made. Good for testing!'}
-                </div>
-              )}
-
-              {stripePk && stripeSk && (
-                <button
-                  type="button"
-                  className="as-test-btn"
-                  onClick={testConnection}
-                  disabled={testingConnection}
-                >
-                  {testingConnection ? (
-                    <><span className="as-spinner" /> Verifying...</>
-                  ) : connectionStatus === 'valid' ? (
-                    <><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Keys verified</>
-                  ) : connectionStatus === 'invalid' ? (
-                    <><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg> Invalid keys — double check and try again</>
-                  ) : (
-                    'Verify Connection'
-                  )}
-                </button>
+            <div className="as-stripe-setup-info">
+              {onboardingIncomplete ? (
+                <p>Your Stripe account setup isn't finished yet. Click below to continue where you left off.</p>
+              ) : (
+                <p>Connect your Stripe account to start accepting payments. You'll be redirected to Stripe to log in or create an account.</p>
               )}
             </div>
+            <button
+              type="button"
+              className="as-stripe-connect-btn"
+              onClick={handleConnectStripe}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+                <polyline points="15 3 21 3 21 9"/>
+                <line x1="10" y1="14" x2="21" y2="3"/>
+              </svg>
+              {onboardingIncomplete ? 'Continue Stripe Setup' : 'Connect with Stripe'}
+            </button>
           </div>
-        )}
+        ) : null}
       </div>
 
       {/* Store Settings Form */}

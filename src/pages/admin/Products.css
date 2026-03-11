@@ -147,6 +147,12 @@
   color: var(--admin-text-muted);
 }
 
+.ap-cat-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
 .ap-cat-badge {
   padding: 4px 10px;
   background: var(--admin-primary-bg);
@@ -156,6 +162,11 @@
   border-radius: 6px;
   text-transform: capitalize;
   white-space: nowrap;
+}
+
+.ap-cat-badge--none {
+  background: var(--admin-input-bg);
+  color: var(--admin-text-muted);
 }
 
 .ap-price-cell {
@@ -221,4 +232,253 @@
   padding: 48px 20px !important;
   color: var(--admin-text-muted);
   font-size: 0.85rem;
+}
+
+/* ── Manage Categories Button ── */
+.ap-manage-cats-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 16px;
+  border: 1.5px solid var(--admin-border);
+  border-radius: 10px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--admin-text-secondary);
+  background: var(--admin-card);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+.ap-manage-cats-btn:hover {
+  border-color: var(--admin-primary);
+  color: var(--admin-primary);
+}
+
+.ap-manage-cats-btn--active {
+  border-color: var(--admin-primary);
+  color: var(--admin-primary);
+  background: var(--admin-primary-bg);
+}
+
+/* ── Category Panel ── */
+.ap-cat-panel {
+  background: var(--admin-card);
+  border: 1px solid var(--admin-border);
+  border-radius: 14px;
+  padding: 20px;
+  margin-bottom: 16px;
+  animation: ap-slideDown 0.2s ease;
+}
+
+@keyframes ap-slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.ap-cat-panel-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.ap-cat-panel-header h3 {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--admin-text);
+}
+
+.ap-cat-panel-count {
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--admin-text-muted);
+  background: var(--admin-input-bg);
+  padding: 2px 8px;
+  border-radius: 8px;
+}
+
+.ap-cat-panel-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ap-cat-panel-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border: 1px solid var(--admin-border);
+  border-radius: 10px;
+  background: var(--admin-input-bg);
+  transition: border-color 0.15s ease;
+}
+
+.ap-cat-panel-item:hover {
+  border-color: var(--admin-border-medium);
+}
+
+.ap-cat-panel-name {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--admin-text);
+  min-width: 100px;
+}
+
+.ap-cat-panel-slug {
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--admin-text-muted);
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  background: var(--admin-card);
+  padding: 2px 8px;
+  border-radius: 5px;
+  border: 1px solid var(--admin-border);
+}
+
+.ap-cat-panel-products {
+  flex: 1;
+  text-align: right;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--admin-text-muted);
+}
+
+.ap-cat-panel-delete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: var(--admin-text-muted);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+
+.ap-cat-panel-delete:hover {
+  background: var(--admin-danger-bg);
+  color: var(--admin-danger);
+}
+
+.ap-cat-panel-empty {
+  font-size: 0.82rem;
+  color: var(--admin-text-muted);
+  text-align: center;
+  padding: 16px 0;
+}
+
+/* ── Confirmation Modal ── */
+.ap-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 24px;
+  animation: ap-fadeIn 0.15s ease;
+}
+
+@keyframes ap-fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.ap-modal {
+  background: var(--admin-card);
+  border: 1px solid var(--admin-border);
+  border-radius: 16px;
+  padding: 32px;
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
+  animation: ap-scaleIn 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes ap-scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.ap-modal-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--admin-danger-bg);
+  color: var(--admin-danger);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+}
+
+.ap-modal-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--admin-text);
+  margin-bottom: 8px;
+}
+
+.ap-modal-text {
+  font-size: 0.88rem;
+  color: var(--admin-text-secondary);
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+
+.ap-modal-text strong {
+  color: var(--admin-text);
+  font-weight: 600;
+}
+
+.ap-modal-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.ap-modal-btn {
+  padding: 10px 24px;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+  transition: all 0.15s ease;
+}
+
+.ap-modal-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.ap-modal-btn--cancel {
+  background: var(--admin-input-bg);
+  color: var(--admin-text-secondary);
+  border: 1.5px solid var(--admin-border);
+}
+
+.ap-modal-btn--cancel:hover:not(:disabled) {
+  background: var(--admin-hover);
+  border-color: var(--admin-border-medium);
+}
+
+.ap-modal-btn--delete {
+  background: var(--admin-danger);
+  color: white;
+}
+
+.ap-modal-btn--delete:hover:not(:disabled) {
+  background: #dc2626;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
 }

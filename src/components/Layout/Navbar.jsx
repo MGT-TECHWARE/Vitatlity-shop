@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { IconCart, IconUser } from '../icons';
+import { IconCart } from '../icons';
 import SearchBar from '../UI/SearchBar';
 import { useCart } from '../../context/CartContext';
 import './Navbar.css';
@@ -41,10 +41,6 @@ export default function Navbar({ onCartOpen }) {
             <IconCart />
             {cartCount > 0 && <span className="navbar-cart-badge">{cartCount}</span>}
           </button>
-          <Link to="#" className="navbar-login">
-            <IconUser />
-            <span>Sign In</span>
-          </Link>
         </div>
       </div>
     </nav>
